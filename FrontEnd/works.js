@@ -22,7 +22,7 @@ function generateWorksHTML(works) {  //Prend en paramètre les travaux stockés 
 generateWorksHTML(works); 
 */
 
-function generateWorksHTML(works) {
+ export function generateWorksHTML(works) {
   for (let i = 0; i < works.length; i++) {
     const work = works[i];
 
