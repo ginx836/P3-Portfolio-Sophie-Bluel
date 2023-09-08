@@ -1,20 +1,16 @@
 import { generateWorksHTML } from "./works.js";
 import { allWorks } from "./filter.js";
 import { filterWorks } from "./filter.js";
+import { getWorks, getCategories } from "./api.js";
 
 
 async function init() {
-  const works = await fetch("http://localhost:5678/api/works").then((works) =>
-    works.json()
-  );
-  const category = await fetch("http://localhost:5678/api/categories").then(
-    (category) => category.json()
-  );
+  const works = await getWorks();
+  const category = await getCategories();
 
   generateWorksHTML(works);
   allWorks(works);
   filterWorks(works, category);
-
 }
 
 init();

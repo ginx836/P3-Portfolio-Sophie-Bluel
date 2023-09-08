@@ -1,7 +1,10 @@
 //Regroupe les fonctions d'appel aux API
-export function getWorks() {
-  return fetch("http://localhost:5678/api/works").then((works) => works.json());
-  return fetch("http://localhost:5678/api/categories").then((categories) =>
-    categories.json()
-  );
+export async function getWorks() {
+  const works = await fetch("http://localhost:5678/api/works");
+  return await works.json();
 }
+
+export async function getCategories() {
+  const category = await fetch("http://localhost:5678/api/categories");
+  return await category.json();}
+
