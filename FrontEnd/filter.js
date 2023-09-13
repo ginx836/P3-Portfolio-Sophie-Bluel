@@ -4,7 +4,7 @@ import { generateWorksHTML } from "./works.js";
 export function allWorks(works) {
   const allButton = document.createElement("button");
   allButton.textContent = "Tous";
-  document.querySelector(".filter-container").appendChild(allButton);
+  document.querySelector(".filterContainer").appendChild(allButton);
 
   allButton.addEventListener("click", function () {
     document.querySelector(".gallery").innerHTML = "";
@@ -21,7 +21,7 @@ export function filterWorks(works, category) {
     //On crée un bouton pour chaque catégorie
     const filterButton = document.createElement("button");
     filterButton.textContent = category.name;
-    document.querySelector(".filter-container").appendChild(filterButton);
+    document.querySelector(".filterContainer").appendChild(filterButton);
 
     //On ajoute un écouteur d'événement sur chaque bouton
     filterButton.addEventListener("click", function () {
