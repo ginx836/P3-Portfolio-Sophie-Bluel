@@ -130,7 +130,7 @@ table {
 /** end reset css**/
 body {
   max-width: 1140px;
-  margin: 0 137px;
+  margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
   position: relative;
