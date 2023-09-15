@@ -3,6 +3,7 @@ import { allWorks } from "./filter.js";
 import { filterWorks } from "./filter.js";
 import { getWorks, getCategories } from "./api.js";
 import { editMode } from "./editMode.js";
+import { generateWorksModal } from "./modal.js";
 
 async function init() {
   const works = await getWorks();
@@ -12,6 +13,7 @@ async function init() {
   allWorks(works);
   filterWorks(works, category);
   editMode();
+  generateWorksModal(works);
 }
 
 init();

@@ -9,7 +9,7 @@ const openModal = function (e) {
   modal = document.querySelector(e.target.getAttribute("href"));
   focusables = Array.from(modal.querySelectorAll(focusableSelector));
   previouslyFocusedElement = document.querySelector(":focus");
-  modal.style.display = null;
+  modal.style.display = "flex";
   focusables[0].focus();
   modal.removeAttribute("aria-hidden");
   modal.setAttribute("aria-modal", "true");
@@ -70,3 +70,23 @@ window.addEventListener("keydown", (e) => {
     focusInModal(e);
   }
 });
+
+//Ajoute les travaux dans la modale
+export function generateWorksModal(works) {
+  //Prend en paramètre les travaux stockés dans la variable works
+  for (let i = 0; i < works.length; i++) {
+    //Boucle qui parcourt les travaux
+    const work = works[i]; //Travail courant
+    const workHTML = `
+      <div class="modalWorkContainer">
+      <span class="deleteIcon data-index="${i}"><i class="fa-solid fa-trash-can"></i>
+      </span>
+      <figure>
+        <img src="${work.imageUrl}" alt="${work.title}">
+      </figure>
+      </div>
+    `;
+    //Ajout du HTML du travail courant à la galerie
+    document.querySelector(".modalGallery").innerHTML += workHTML;
+  }
+}
