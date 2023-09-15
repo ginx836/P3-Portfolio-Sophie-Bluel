@@ -1,19 +1,28 @@
-//Regroupe les fonctions d'appel aux API
+const pathAPI = "http://localhost:5678/api";
+
+/**
+ * 
+ * @returns {Promise<Array>} Une promesse contenant un tableau d'objets
+ */
 export async function getWorks() {
-  const works = await fetch("http://localhost:5678/api/works");
+  const works = await fetch(pathAPI + "/works");
   return await works.json();
 }
 
 export async function getCategories() {
-  const category = await fetch("http://localhost:5678/api/categories");
+  const category = await fetch(pathAPI + "/categories");
   return await category.json();}
   
-
+/**
+ * 
+ * @param {string} email
+ * @param {string} password 
+ * @returns 
+ */
 export async function loginUser(email, password) {
-  // Fonction asynchrone pour envoyer la requête de connexion
   const data = { email, password };
 
-  const response = await fetch("http://localhost:5678/api/users/login", {
+  const response = await fetch(pathAPI + "/users/login", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -23,10 +32,8 @@ export async function loginUser(email, password) {
   });
 
   if (response.status === 200) {
-    // La requête a réussi, renvoyer les données JSON
     return await response.json();
   } else {
-    // La requête a échoué, renvoyer un objet vide
     return {};
   }
 }
