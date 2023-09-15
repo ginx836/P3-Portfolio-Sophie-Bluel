@@ -49,10 +49,10 @@
 		<section id="portfolio">
 			<div id="projects">
 				<h2 id="projectsTitle">Mes Projets</h2>
-				<button class="editProjects">
+				<a class="editProjects jsModal" href="#modal1">
 					<i class="fa-solid fa-edit"></i>
 					modifier
-				</button>
+				</a>
 			</div>
 			<div class="filterContainer">
 			</div>
@@ -72,6 +72,17 @@
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
+		<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTittle"
+			style="display: none;">
+			<div class="modalContent jsModalStop">
+				<button type="button" class="modalClose jsModalClose">Fermer</button>
+				<h3 id="modalTitle">Galerie photo</h3>
+				<div class="modalGallery">
+				</div>
+				<hr>
+				<button type="button" class="modal-addProject">Ajouter une photo</button>
+			</div>
+		</aside>
 	</main>
 	<footer>
 		<nav>
@@ -81,6 +92,7 @@
 		</nav>
 	</footer>
 	<script type="module" src="./main.js"></script>
+	<script src="./modal.js"></script>
 </body>
 
 </html>
