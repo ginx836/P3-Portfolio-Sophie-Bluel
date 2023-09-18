@@ -50,7 +50,7 @@
 			<div id="projects">
 				<h2 id="projectsTitle">Mes Projets</h2>
 				<a class="editProjects jsModal" href="#modal1">
-					<i class="fa-solid fa-edit"></i>
+					<i class="fa-solid fa-edit" href="#modal1"></i>
 					modifier
 				</a>
 			</div>
@@ -72,14 +72,20 @@
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
-		<div id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTittle">
-			<div class="modalContent jsModalStop">
-				<button type="button" class="modalClose jsModalClose"><i class="fa-solid fa-xmark"></i></button>
-				<h3 class="modalTitle">Galerie photo</h3>
-				<div class="modalGallery">
+		<div id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+			<div class="modalContentContainer jsModalStop">
+				<div class="modalHeader">
+					<button type="button" class="buttonModal jsModalBack"><i class="fa-solid fa-arrow-left"></i></button>
+					<button type="button" class="buttonModal jsModalClose"><i
+							class="fa-solid fa-xmark"></i></button>
 				</div>
-				<hr class="modalSeparator">
-				<button type="button" class="modalAddProject">Ajouter une photo</button>
+				<div class="modalContent">
+					<h3 class="modalTitle">Galerie photo</h3>
+					<div class="modalGallery">
+					</div>
+					<hr class="modalSeparator">
+					<button type="button" class="addPhoto">Ajouter une photo</button>
+				</div>
 			</div>
 			</>
 	</main>

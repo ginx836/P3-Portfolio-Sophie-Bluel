@@ -358,29 +358,33 @@ input[type="submit"] {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
 }
-.modalContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+.modalContentContainer {
   max-width: calc(100% - 60px);
   max-height: calc(100% - 60px);
   width: 630px;
   height: auto;
-  padding: 60px 105px 45px 105px;
-  background-color: #fff;
   border-radius: 10px;
+  background-color: #fff;
 }
-.modalClose {
-  position: absolute;
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* position: relative; */
+  padding: 10px 105px 45px 105px;
+}
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 26px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.buttonModal {
   border: none;
   background: #fff;
-  top: 26px;
-  right: 30px;
   cursor: pointer;
-}
-.fa-xmark {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .modalTitle {
   color: #000;
@@ -429,7 +433,7 @@ input[type="submit"] {
   margin-bottom: 3em;
   width: 100%;
 }
-.modalAddProject {
+.addPhoto {
   font-family: "Syne";
   font-weight: 700;
   font-size: 1em;

@@ -9,6 +9,10 @@ const openModal = function (e) {
   modal = document.querySelector(e.target.getAttribute("href"));
   focusables = Array.from(modal.querySelectorAll(focusableSelector));
   previouslyFocusedElement = document.querySelector(":focus");
+  const modalBackButton = modal.querySelector(".jsModalBack");
+  if (modalBackButton) {
+    modalBackButton.style.visibility = "hidden";
+  }
   modal.style.display = "flex";
   focusables[0].focus();
   modal.removeAttribute("aria-hidden");
@@ -37,6 +41,7 @@ const closeModal = function (e) {
   modal
     .querySelector(".jsModalStop")
     .removeEventListener("click", stopPropagation);
+
   modal = null;
 };
 
@@ -90,3 +95,52 @@ export function generateWorksModal(works) {
     document.querySelector(".modalGallery").innerHTML += workHTML;
   }
 }
+
+//Modifie le contenu de la modale lros du clic sur le bouton "Ajouter une photo"
+const addPhotoButton = document.querySelector(".addPhoto");
+
+addPhotoButton.addEventListener("click", () => {
+  const modalTitle = document.querySelector(".modalTitle");
+  modalTitle.innerHTML = "Ajout photo";
+
+  //Supprime la div galerie de la modale
+  const modalGallery = document.querySelector(".modalGallery");
+
+  const modalForm = document.createElement("div");
+  modalForm.className = "modalForm";
+  modalForm.innerHTML = `
+  `;
+
+  modalGallery.replaceWith(modalForm);
+
+  //Rend visible le bouton de retour
+  const modalBackButton = modal.querySelector(".jsModalBack");
+  if (modalBackButton) {
+    modalBackButton.style.visibility = "visible";
+  }
+
+  //Lorsque l'on clique du le bouton "Retour" de la modale, on réinitialise on contenu.
+  modalBackButton.addEventListener("click", () => {
+    resetAddPhotoModal();
+  });
+
+  //Crée la fonction qui permet de réinitialiser le contenu de la modale
+  const resetAddPhotoModal = (e) => {
+    if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
+    const modalTitle = document.querySelector(".modalTitle");
+    modalTitle.innerHTML = "Galerie Photo";
+    modalForm.replaceWith(modalGallery);
+    modalBackButton.style.visibility = "hidden";
+  };
+
+  modal.addEventListener("click", resetAddPhotoModal);
+
+  const jsModalClose2 = document.querySelector(".jsModalClose");
+  jsModalClose2.addEventListener("click", resetAddPhotoModal);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+      resetAddPhotoModal(e);
+    }
+  });
+});
