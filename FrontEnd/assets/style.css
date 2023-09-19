@@ -132,6 +132,7 @@ body {
   font-size: 14px;
   position: relative;
   overflow: auto;
+  background: #fffef8;
 }
 
 /* ********** EditMode ********** */
@@ -316,14 +317,17 @@ nav ul {
   flex-direction: column;
 }
 #contact input,
-#login input {
+#login input,
+#formAddPhotoInput input,
+#categories {
   height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #contact label,
-#login label {
+#login label,
+#formAddPhotoInput label {
   margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -346,7 +350,7 @@ input[type="submit"] {
   border-radius: 60px;
 }
 
-/* ********** Modal ********** */
+/* ********** Modale principale ********** */
 .modal {
   position: fixed;
   display: none;
@@ -356,7 +360,7 @@ input[type="submit"] {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .modalContentContainer {
   max-width: calc(100% - 60px);
@@ -365,13 +369,16 @@ input[type="submit"] {
   height: auto;
   border-radius: 10px;
   background-color: #fff;
+  min-width: 600px;
+  overflow: auto;
+
 }
 .modalContent {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* position: relative; */
   padding: 10px 105px 45px 105px;
+
 }
 .modalHeader {
   display: flex;
@@ -446,10 +453,77 @@ input[type="submit"] {
   height: 36px;
   border: none;
   border-radius: 60px;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  cursor: pointer;
+}
+
+/* ********** Modale d'ajout des photos ********** */
+.formAddPhotoContainer {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  height: 169px;
+  border-radius: 3px;
+  background: #e8f1f6;
+  align-items: center;
+  margin-top: 36px;
+}
+.formAddPhotoContainer p {
+  font-family: "Work Sans";
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #444444;
+  margin-top: 7px;
+}
+.pictureUpload {
+  width: 68px;
+  height: 60px;
+  border-radius: 3px;
+  border: none;
+  font-size: 60px;
+  line-height: 60px;
+  padding: 0;
+  background: #e8f1f6;
+  margin: 13px 0;
+  cursor: pointer;
+}
+.pictureUpload i {
+  color: #b9c5cc;
+  background: #e8f1f6;
+}
+.addPictureButton {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  color: white;
+  background-color: #1d6154;
+  width: 173px;
+  height: 36px;
+  padding: 10px 33px;
+  text-align: center;
+  height: 36px;
+  border: none;
+  border-radius: 50px;
+  color: #306685;
+  background: #cbd6dc;
+  cursor: pointer;
+}
+#formAddPhotoInput {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 47px;
 }
 
 /* ********** Footer ********** */
+footer {
+  display: flex;
+  height: 60px;
+  max-width: 1140px;
+  background: #fffef8;
+}
 footer nav ul {
   display: flex;
   justify-content: flex-end;
@@ -457,6 +531,9 @@ footer nav ul {
 }
 .footer-login {
   position: absolute;
-  margin-top: 13em;
-  width: 100%;
+  right: 0;
+  margin-top: 19em;
+  max-width: 1140px;
+  background: #fffef8;
+  
 }
