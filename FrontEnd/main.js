@@ -12,6 +12,7 @@ import {
   generateWorksModal,
 } from "./modal.js";
 
+
 async function init() {
   const works = await getWorks();
   const category = await getCategories();
@@ -22,6 +23,8 @@ async function init() {
   editMode();
   generateWorksModal(works);
   initializeForm();
+
+
 
   document.querySelectorAll(".jsModal").forEach((a) => {
     a.addEventListener("click", openModal);

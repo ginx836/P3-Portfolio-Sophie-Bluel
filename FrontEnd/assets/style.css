@@ -318,7 +318,7 @@ nav ul {
 }
 #contact input,
 #login input,
-#formAddPhotoInput input,
+#addPictureInput input,
 #categories {
   height: 50px;
   font-size: 1.2em;
@@ -327,7 +327,7 @@ nav ul {
 }
 #contact label,
 #login label,
-#formAddPhotoInput label {
+#addPictureInput label {
   margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -345,7 +345,7 @@ input[type="submit"] {
   color: white;
   background-color: #1d6154;
   margin: 3em auto;
-  width: 180px;
+  width: 179px;
   text-align: center;
   border-radius: 60px;
 }
@@ -371,14 +371,12 @@ input[type="submit"] {
   background-color: #fff;
   min-width: 600px;
   overflow: auto;
-
 }
 .modalContent {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 10px 105px 45px 105px;
-
 }
 .modalHeader {
   display: flex;
@@ -440,7 +438,8 @@ input[type="submit"] {
   margin-bottom: 3em;
   width: 100%;
 }
-.addPhoto {
+.modalAddPicture,
+.validate {
   font-family: "Syne";
   font-weight: 700;
   font-size: 1em;
@@ -456,8 +455,9 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+
 /* ********** Modale d'ajout des photos ********** */
-.formAddPhotoContainer {
+.addPictureContainer {
   display: flex;
   flex-direction: column;
   width: 420px;
@@ -467,7 +467,7 @@ input[type="submit"] {
   align-items: center;
   margin-top: 36px;
 }
-.formAddPhotoContainer p {
+.addPictureContainer p {
   font-family: "Work Sans";
   font-size: 10px;
   font-style: normal;
@@ -477,7 +477,7 @@ input[type="submit"] {
   color: #444444;
   margin-top: 7px;
 }
-.pictureUpload {
+.fa-image {
   width: 68px;
   height: 60px;
   border-radius: 3px;
@@ -488,18 +488,16 @@ input[type="submit"] {
   background: #e8f1f6;
   margin: 13px 0;
   cursor: pointer;
-}
-.pictureUpload i {
   color: #b9c5cc;
-  background: #e8f1f6;
 }
-.addPictureButton {
+
+.formAddPicture {
   font-family: "Work Sans", sans-serif;
   font-weight: 500;
   font-size: 1em;
   color: white;
   background-color: #1d6154;
-  width: 173px;
+  width: 179px;
   height: 36px;
   padding: 10px 33px;
   text-align: center;
@@ -510,11 +508,22 @@ input[type="submit"] {
   background: #cbd6dc;
   cursor: pointer;
 }
-#formAddPhotoInput {
+#addPictureInput {
   display: flex;
   flex-direction: column;
   margin-top: 30px;
   margin-bottom: 47px;
+}
+.browse {
+  position: absolute;
+  margin-top: 3px;
+  margin-left: 3px;
+  height: 1px;
+  width: 1px;
+  z-index: -5;
+}
+.addPictureContainer img {
+  height: 100%;
 }
 
 /* ********** Footer ********** */
@@ -535,5 +544,4 @@ footer nav ul {
   margin-top: 19em;
   max-width: 1140px;
   background: #fffef8;
-  
 }

@@ -1,9 +1,10 @@
 import { getCategories } from "./api.js";
 import { modal } from "./modal.js";
+import { addPicture } from "./addPicture.js";
 
 export function initializeForm() {
   //Modifie le contenu de la modale lros du clic sur le bouton "Ajouter une photo"
-  const addPictureButton = document.querySelector(".addPhoto");
+  const addPictureButton = document.querySelector(".modalAddPicture");
 
   addPictureButton.addEventListener("click", () => {
     const modalTitle = document.querySelector(".modalTitle");
@@ -15,25 +16,27 @@ export function initializeForm() {
     const modalForm = document.createElement("div");
     modalForm.className = "modalForm";
     modalForm.innerHTML = `
-  <form action="" method="post" class="formAddPhoto">
-  <div class="formAddPhotoContainer">
-  <button type="button" class="pictureUpload">
+  <div class="addPictureWrapper">
+  <div class="addPictureContainer" data-img="">
   <i class="fa-regular fa-image">
   </i>
-  </button>
-  <button type="button" class="addPictureButton">+ Ajouter photo</button>
+  <input type="file" name="image" id="file" class="browse" multiple>
+  <span id="pictureSelectButton" class="formAddPicture">+ Ajouter photo</span>
   <p>jpg, png : 4mo max</p>
   </div>
-  <div id="formAddPhotoInput">
+  </div>
+  <form action="" method="post" id="addPictureInput">
   <label for="title">Titre</label>
   <input type="text" name="title" id="title" required>
   <label for="categories">Catégorie</label>
   <select name="categories" id="categories">
   </select>
-  </div>
+  </form>
   `;
 
-    modalGallery.replaceWith(modalForm);
+    if (modalGallery) {
+      modalGallery.replaceWith(modalForm);
+    }
 
     //Récupère la liste des catégories et les ajoute au formulaire
     const categories = getCategories();
@@ -47,17 +50,17 @@ export function initializeForm() {
         select.appendChild(option);
       }
     });
-
+    
     //Modifie le bouton "Ajouter une photo" en "Valider"
-    const addPictureButton = document.querySelector(".addPhoto");
     addPictureButton.innerHTML = "Valider";
-
+    addPictureButton.className = "validate";
+    
     //Rend visible le bouton de retour
     const modalBackButton = modal.querySelector(".jsModalBack");
     if (modalBackButton) {
       modalBackButton.style.visibility = "visible";
     }
-
+    
     //Crée la fonction qui permet de réinitialiser le contenu de la modale
     const resetAddPhotoModal = (e) => {
       // if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
@@ -67,20 +70,22 @@ export function initializeForm() {
       modalBackButton.style.visibility = "hidden";
       addPictureButton.innerHTML = "Ajouter une photo";
     };
-
+    
     modal.addEventListener("click", resetAddPhotoModal);
-
+    
     const jsModalClose2 = document.querySelector(".jsModalClose");
     jsModalClose2.addEventListener("click", resetAddPhotoModal);
-
+    
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" || e.key === "Esc") {
         resetAddPhotoModal(e);
       }
     });
-
+    
     modalBackButton.addEventListener("click", () => {
       resetAddPhotoModal();
     });
+    
+    addPicture();
   });
 }
