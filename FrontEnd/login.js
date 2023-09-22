@@ -15,14 +15,15 @@ async function handleLogin(event) {
 
   function errorMessage(message) {
     const form = document.getElementById("loginForm");
+    const submitButton = document.querySelector("input[type='submit']");
     const error = document.createElement("p");
     error.textContent = message;
     error.style.color = "red";
     error.style.textAlign = "center";
-    error.style.marginBottom = "1em";
-    form.appendChild(error);
+    error.style.marginTop = "1em";
 
-    const submitButton = document.querySelector("input[type='submit']");
+    form.insertBefore(error, submitButton);
+
     submitButton.addEventListener("click", function () {
       error.remove();
     });
