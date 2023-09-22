@@ -318,7 +318,7 @@ nav ul {
 }
 #contact input,
 #login input,
-#addPictureInput input,
+#formAddPicture input,
 #categories {
   height: 50px;
   font-size: 1.2em;
@@ -327,7 +327,7 @@ nav ul {
 }
 #contact label,
 #login label,
-#addPictureInput label {
+#formAddPicture label {
   margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -438,8 +438,10 @@ input[type="submit"] {
   margin-bottom: 3em;
   width: 100%;
 }
-.modalAddPicture,
-.validate {
+.formSeparator {
+  margin-top: 47px;
+}
+.addPictureButton, .modalValidateButton {
   font-family: "Syne";
   font-weight: 700;
   font-size: 1em;
@@ -455,7 +457,6 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-
 /* ********** Modale d'ajout des photos ********** */
 .addPictureContainer {
   display: flex;
@@ -465,7 +466,7 @@ input[type="submit"] {
   border-radius: 3px;
   background: #e8f1f6;
   align-items: center;
-  margin-top: 36px;
+  margin-top: 3em;
 }
 .addPictureContainer p {
   font-family: "Work Sans";
@@ -476,6 +477,7 @@ input[type="submit"] {
   text-align: center;
   color: #444444;
   margin-top: 7px;
+  margin-bottom: 2px;
 }
 .fa-image {
   width: 68px;
@@ -491,7 +493,7 @@ input[type="submit"] {
   color: #b9c5cc;
 }
 
-.formAddPicture {
+.pictureSelectButton {
   font-family: "Work Sans", sans-serif;
   font-weight: 500;
   font-size: 1em;
@@ -508,11 +510,9 @@ input[type="submit"] {
   background: #cbd6dc;
   cursor: pointer;
 }
-#addPictureInput {
+#formAddPicture {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
-  margin-bottom: 47px;
 }
 .browse {
   position: absolute;

@@ -1,91 +1,67 @@
 import { getCategories } from "./api.js";
-import { modal } from "./modal.js";
-import { addPicture } from "./addPicture.js";
+import { generateWorksModal } from "./works.js";
+
 
 export function initializeForm() {
-  //Modifie le contenu de la modale lros du clic sur le bouton "Ajouter une photo"
-  const addPictureButton = document.querySelector(".modalAddPicture");
+  const modal = document.querySelector(".modal");
+  const modalContent = document.querySelector(".modalContent");
+  const modalBackButton = modal.querySelector(".jsModalBack");
 
-  addPictureButton.addEventListener("click", () => {
-    const modalTitle = document.querySelector(".modalTitle");
-    modalTitle.innerHTML = "Ajout photo";
 
-    //Remplace le contenu de la modale par un formulaire
-    const modalGallery = document.querySelector(".modalGallery");
+  modalBackButton.style.visibility = "visible";
+  
+  //Modifie le contenu de la modale
+  modalContent.innerHTML = `
+      <h3 class="modalTitle">Ajout photo</h3>
+      <form id="formAddPicture" class="modalForm">
 
-    const modalForm = document.createElement("div");
-    modalForm.className = "modalForm";
-    modalForm.innerHTML = `
-  <div class="addPictureWrapper">
-  <div class="addPictureContainer" data-img="">
-  <i class="fa-regular fa-image">
-  </i>
-  <input type="file" name="image" id="file" class="browse" multiple>
-  <span id="pictureSelectButton" class="formAddPicture">+ Ajouter photo</span>
-  <p>jpg, png : 4mo max</p>
-  </div>
-  </div>
-  <form action="" method="post" id="addPictureInput">
-  <label for="title">Titre</label>
-  <input type="text" name="title" id="title" required>
-  <label for="categories">Catégorie</label>
-  <select name="categories" id="categories">
-  </select>
-  </form>
-  `;
+        <div class="addPictureContainer" data-img="">
+          <i class="fa-regular fa-image"></i>
+          <input type="file" name="image" id="file" class="browse" multiple>
+          <span id="pictureSelectButton" class="pictureSelectButton">+ Ajouter photo</span>
+          <p>jpg, png : 4mo max</p>
+        </div>
 
-    if (modalGallery) {
-      modalGallery.replaceWith(modalForm);
+        <label for="title">Titre</label>
+        <input type="text" name="title" id="title" required>
+
+        <label for="categories">Catégorie</label>
+        <select name="categories" id="categories">
+          ${generateCategoryOptions()}
+        </select>
+
+        <hr class="modalSeparator formSeparator">
+        <button type="submit" class="modalValidateButton">Valider</button>
+      </form>
+    `;
+
+  async function generateCategoryOptions() {
+    const categories = await getCategories();
+    const select = document.getElementById("categories");
+    for (let i = 0; i < categories.length; i++) {
+      const category = categories[i];
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      select.appendChild(option);
     }
-
-    //Récupère la liste des catégories et les ajoute au formulaire
-    const categories = getCategories();
-    categories.then((categories) => {
-      const select = document.getElementById("categories");
-      for (let i = 0; i < categories.length; i++) {
-        const category = categories[i];
-        const option = document.createElement("option");
-        option.value = category.id;
-        option.textContent = category.name;
-        select.appendChild(option);
-      }
-    });
-    
-    //Modifie le bouton "Ajouter une photo" en "Valider"
-    addPictureButton.innerHTML = "Valider";
-    addPictureButton.className = "validate";
-    
-    //Rend visible le bouton de retour
-    const modalBackButton = modal.querySelector(".jsModalBack");
-    if (modalBackButton) {
-      modalBackButton.style.visibility = "visible";
-    }
-    
-    //Crée la fonction qui permet de réinitialiser le contenu de la modale
-    const resetAddPhotoModal = (e) => {
-      // if (previouslyFocusedElement !== null) previouslyFocusedElement.focus();
-      const modalTitle = document.querySelector(".modalTitle");
-      modalTitle.innerHTML = "Galerie Photo";
-      modalForm.replaceWith(modalGallery);
-      modalBackButton.style.visibility = "hidden";
-      addPictureButton.innerHTML = "Ajouter une photo";
-    };
-    
-    modal.addEventListener("click", resetAddPhotoModal);
-    
-    const jsModalClose2 = document.querySelector(".jsModalClose");
-    jsModalClose2.addEventListener("click", resetAddPhotoModal);
-    
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" || e.key === "Esc") {
-        resetAddPhotoModal(e);
-      }
-    });
-    
-    modalBackButton.addEventListener("click", () => {
-      resetAddPhotoModal();
-    });
-    
-    addPicture();
-  });
+  }
 }
+
+//Crée une fonction qui génère le contenu de la div .modalContent pour afficher la gallerie
+export async function generateModalGallery() {
+  const modal = document.querySelector(".modal");
+  const modalContent = document.querySelector(".modalContent");
+  const modalBackButton = modal.querySelector(".jsModalBack");
+
+  modalBackButton.style.visibility = "hidden";
+
+  modalContent.innerHTML = `
+  <h3 class="modalTitle">Galerie photo</h3>
+	<div class="modalGallery">
+	</div>
+	<hr class="modalSeparator">
+	<button type="button" class="addPictureButton">Ajouter une photo</button>
+  `;
+}
+

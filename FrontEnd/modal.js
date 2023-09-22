@@ -6,7 +6,7 @@ let previouslyFocusedElement = null;
 // Empêche la propagation de l'événement
 export function stopPropagation(e) {
   e.stopPropagation();
-};
+}
 
 export function openModal(e) {
   e.preventDefault();
@@ -61,24 +61,6 @@ export function focusInModal(e) {
   focusables[index].focus();
 }
 
-export function generateWorksModal(works) {
-  //Prend en paramètre les travaux stockés dans la variable works
-  for (let i = 0; i < works.length; i++) {
-    //Boucle qui parcourt les travaux
-    const work = works[i]; //Travail courant
-    const workHTML = `
-      <div class="modalWorkContainer">
-      <span class="deleteIcon data-index="${i}"><i class="fa-solid fa-trash-can"></i>
-      </span>
-      <figure>
-        <img src="${work.imageUrl}" alt="${work.title}">
-      </figure>
-      </div>
-    `;
-    //Ajout du HTML du travail courant à la galerie
-    document.querySelector(".modalGallery").innerHTML += workHTML;
-  }
-}
 
 //Ajoute un eventlistener sur la touche tab et Escape
 window.addEventListener("keydown", (e) => {
