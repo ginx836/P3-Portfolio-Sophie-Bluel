@@ -37,3 +37,26 @@ export async function loginUser(email, password) {
     return {};
   }
 }
+
+export async function sendForm(formData) {
+  try {
+  const response = await fetch(pathAPI + "/works", {
+    headers: {
+      accept: "application/json",
+      authorization: "Bearer " + localStorage.getItem("accessToken"),
+    },
+    method: "POST",
+    body: formData
+  });
+
+  if (response.status === 201) {
+    return await response.json();
+  } else {
+    throw new Error("Quelque chose s'est mal passé");
+  }
+} catch (error) {
+  console.error(error);
+  alert("Quelque chose s'est mal passé");
+  return {};
+}
+}

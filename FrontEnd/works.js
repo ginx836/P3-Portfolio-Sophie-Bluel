@@ -1,4 +1,5 @@
-export function generateWorksHTML(works) {  //Prend en paramètre les travaux stockés dans la variable works
+export function generateWorksHTML(works) {
+  //Prend en paramètre les travaux stockés dans la variable works
   for (let i = 0; i < works.length; i++) {
     //Boucle qui parcourt les travaux
     const work = works[i]; //Récupération du travail courant
@@ -11,7 +12,7 @@ export function generateWorksHTML(works) {  //Prend en paramètre les travaux st
     `;
     document.querySelector(".gallery").innerHTML += workHTML; //Ajout du HTML du travail courant à la galerie
   }
-};
+}
 
 export function generateWorksModal(works) {
   //Prend en paramètre les travaux stockés dans la variable works

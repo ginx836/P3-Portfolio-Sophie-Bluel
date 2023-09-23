@@ -18,6 +18,7 @@ async function init() {
   generateModalGallery();
   generateWorksModal(works);
 
+
   document.querySelectorAll(".jsModal").forEach((a) => {
     a.addEventListener("click", openModal);
   });
