@@ -425,6 +425,7 @@ input[type="submit"] {
   top: 5px;
   width: 11px;
   height: 11px;
+  cursor: pointer;
 }
 .fa-trash-can {
   font-size: 10px;

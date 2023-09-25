@@ -17,7 +17,6 @@ async function init() {
   filterWorks(works, category);
   editMode();
   generateModalGallery();
-  generateWorksModal(works);
 
 
   document.querySelectorAll(".jsModal").forEach((a) => {
@@ -59,9 +58,7 @@ async function init() {
 
   // La fonction pour gérer le clic sur le bouton "Back"
   function handleBackButtonClick() {
-    // Générer la galerie modale
     generateModalGallery();
-    generateWorksModal(works);
 
     // Réinitialiser l'état du bouton "Ajouter une photo"
     const addPictureButton = document.querySelector(".addPictureButton");

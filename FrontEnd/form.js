@@ -1,4 +1,6 @@
 import { getCategories } from "./api.js";
+import { generateWorksHTML, generateWorksModal } from "./works.js";
+import { getWorks } from "./api.js";
 
 export function initializeForm() {
   const modal = document.querySelector(".modal");
@@ -113,9 +115,15 @@ export function initializeForm() {
     `;
           imgArea.classList.remove("active");
 
+          //Actualiser la galerie
+          const gallery = document.querySelector(".gallery");
+          const works = await getWorks();
+          gallery.innerHTML = "";
+          generateWorksHTML(works);
+
           // Afficher le message de succès
           const form = document.querySelector(".modalForm");
-          const submitButton = document.querySelector(".modalValidateButton")
+          const submitButton = document.querySelector(".modalValidateButton");
           const separator = document.querySelector(".modalSeparator");
           const successMessage = document.createElement("p");
           successMessage.textContent = "La photo a été ajoutée";
@@ -201,4 +209,6 @@ export async function generateModalGallery() {
 	<hr class="modalSeparator">
 	<button type="button" class="addPictureButton">Ajouter une photo</button>
   `;
+  const works = await getWorks();
+  generateWorksModal(works);
 }
