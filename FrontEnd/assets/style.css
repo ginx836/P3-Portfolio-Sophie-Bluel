@@ -128,8 +128,7 @@ table {
 body {
   max-width: 1140px;
   margin: auto;
-  font-family: "Work Sans";
-  font-size: 14px;
+  font: 14px "Work Sans";
   position: relative;
   overflow: auto;
   background: #fffef8;
@@ -137,14 +136,13 @@ body {
 
 /* ********** EditMode ********** */
 #editMode {
+  display: none;
   height: 59px;
   background-color: #000;
   color: #fff;
-  display: none;
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  font-weight: 200;
 }
 #editMode i {
   padding-right: 10px;
@@ -197,7 +195,7 @@ nav ul {
   margin-left: 3em;
 }
 .navbar-link {
-  font-size: 1.2em;
+  font-size: 16px;
   text-decoration: none;
   color: #000;
 }
@@ -218,17 +216,15 @@ nav ul {
   align-items: center;
   margin: 8em 0 10em 0;
 }
-#introduction figure {
-  flex: 1;
-}
+
 #introduction img {
   display: block;
-  margin: auto;
-  width: 80%;
+  /* margin: auto; */
+  margin: 0 72px 0 95px;
+  width: 474px;
+  height: 355px;
 }
-#introduction article {
-  flex: 1;
-}
+
 #introduction h2 {
   margin-bottom: 0.5em;
 }
@@ -253,8 +249,10 @@ nav ul {
   align-items: center;
   margin-left: 2em;
   font-family: "Work Sans";
-  text-decoration: none;
   color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 .editProjects i {
   padding-right: 1em;
@@ -282,14 +280,20 @@ nav ul {
   color: #fff;
 }
 .gallery {
-  width: 100%;
+  width: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-template-columns: repeat(3, 310px);
+  grid-column-gap: 10px;
+  grid-row-gap: 30px;
+  justify-content: center;
+}
+.gallery figure {
+  width: 310px;
+  height: 413px;
 }
 .gallery img {
-  width: 100%;
+  width: 305px;
+  height: 407px;
 }
 
 /* ********** Contact ********** */
@@ -389,7 +393,7 @@ input[type="submit"] {
   border: none;
   background: #fff;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 .modalTitle {
   color: #000;
@@ -405,14 +409,14 @@ input[type="submit"] {
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  column-gap: 0.75em;
-  row-gap: 2em;
+  column-gap: 10px;
+  row-gap: 25px;
   margin-top: 3em;
-  margin-bottom: 4em;
+  margin-bottom: 60px;
 }
 .modalGallery img {
   width: 100%;
-  height: auto;
+  height: 103px;
 }
 .modalWorkContainer {
   position: relative;
@@ -424,6 +428,7 @@ input[type="submit"] {
   top: 5px;
   width: 11px;
   height: 11px;
+  cursor: pointer;
 }
 .fa-trash-can {
   font-size: 10px;
@@ -435,13 +440,15 @@ input[type="submit"] {
 .modalSeparator {
   height: 1px;
   background: #b3b3b3;
-  margin-bottom: 3em;
+  margin-bottom: 38px;
   width: 100%;
 }
 .formSeparator {
-  margin-top: 47px;
+  margin-top: 46px;
 }
-.addPictureButton, .modalValidateButton {
+.addPictureButton,
+.modalValidateButton:disabled,
+.modalValidateButton:enabled {
   font-family: "Syne";
   font-weight: 700;
   font-size: 1em;
@@ -455,6 +462,10 @@ input[type="submit"] {
   border: none;
   border-radius: 60px;
   cursor: pointer;
+}
+.modalValidateButton:disabled {
+  background-color: #a7a7a7;
+  cursor: not-allowed;
 }
 
 /* ********** Modale d'ajout des photos ********** */

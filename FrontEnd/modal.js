@@ -10,15 +10,14 @@ export function stopPropagation(e) {
 
 export function openModal(e) {
   e.preventDefault();
-  modal = document.querySelector(e.target.getAttribute("href"));
+  modal = document.querySelector("#modal1");
   focusables = Array.from(modal.querySelectorAll(focusableSelector));
-  previouslyFocusedElement = document.querySelector(":focus");
   const modalBackButton = modal.querySelector(".jsModalBack");
   if (modalBackButton) {
     modalBackButton.style.visibility = "hidden";
   }
   modal.style.display = "flex";
-  focusables[0].focus();
+  focusables[1].focus();  
   modal.removeAttribute("aria-hidden");
   modal.setAttribute("aria-modal", "true");
   modal.addEventListener("click", closeModal);
@@ -58,9 +57,8 @@ export function focusInModal(e) {
   if (index < 0) {
     index = focusables.length - 1;
   }
-  focusables[index].focus();
+  focusables[index].focus();        
 }
-
 
 //Ajoute un eventlistener sur la touche tab et Escape
 window.addEventListener("keydown", (e) => {
