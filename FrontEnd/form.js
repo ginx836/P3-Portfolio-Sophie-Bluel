@@ -3,22 +3,24 @@ import { generateWorksHTML } from "./works.js";
 import { getWorks } from "./api.js";
 import { sendForm } from "./api.js";
 
+let image;
+
 export function initializeForm() {
   const modal = document.querySelector(".modal");
-  const modalContent = document.querySelector(".modalContent");
-  const modalBackButton = modal.querySelector(".jsModalBack");
+  const modalContent = document.querySelector(".modal-content");
+  const modalBackButton = modal.querySelector(".js-modal-back");
 
   modalBackButton.style.visibility = "visible";
 
   //Modifie le contenu de la modale
   modalContent.innerHTML = `
-      <h3 class="modalTitle">Ajout photo</h3>
-      <form id="formAddPicture" class="modalForm">
+      <h3 class="modal-title">Ajout photo</h3>
+      <form id="form-add-picture" class="modal-form">
 
-        <div class="addPictureContainer">
+        <div class="add-picture-container">
           <i class="fa-regular fa-image"></i>
           <input type="file" name="image" id="file" accept="image/*" class="browse" required>
-          <span id="pictureSelectButton" class="pictureSelectButton">+ Ajouter photo</span>
+          <span id="picture-select-button" class="picture-select-button">+ Ajouter photo</span>
           <p>jpg, png : 4mo max</p>
         </div>
 
@@ -30,140 +32,18 @@ export function initializeForm() {
           ${generateCategoryOptions()}
         </select>
 
-        <hr class="modalSeparator formSeparator">
-        <button type="submit" id="submit" class="modalValidateButton" disabled>Valider</button>
+        <hr class="modal-separator form-separator">
+        <p class="success-message" visibility=hidden">message d'erreur</p>
+        <button type="submit" id="submit" class="modal-validate-button">Valider</button>
       </form>
     `;
+  addPicture();
 
-  //Crée une fonction qui génère les options du select
-  async function generateCategoryOptions() {
-    const categories = await getCategories();
-    const select = document.getElementById("categories");
-    for (let i = 0; i < categories.length; i++) {
-      const category = categories[i];
-      const option = document.createElement("option");
-      option.value = category.id;
-      option.textContent = category.name;
-      select.appendChild(option);
-    }
-  }
-
-  //Crée une fonction qui permet d'ajouter une image à la galerie
-  async function addPicture() {
-    const selectImage = document.getElementById("pictureSelectButton");
-    const inputFile = document.getElementById("file");
-    const imgArea = document.querySelector(".addPictureContainer");
-    const submitButton = document.getElementById("submit");
-
-    selectImage.addEventListener("click", () => {
-      inputFile.click();
-    });
-
-    inputFile.addEventListener("input", () => {
-      const image = inputFile.files[0];
-
-      if (image.size <= 4000000) {
-        const reader = new FileReader();
-
-        reader.onload = () => {
-          //Remplace les éléments de la div par l'image sélectionnée
-          imgArea.innerHTML = "";
-
-          //Crée un élément img et lui attribue l'image sélectionnée
-          const img = document.createElement("img");
-          img.src = reader.result;
-          imgArea.appendChild(img);
-          imgArea.classList.add("active");
-        };
-
-        reader.readAsDataURL(image);
-      } else {
-        alert("Image size exceeds 4MB");
-        inputFile.value = "";
-      }
-
-      //Envoie le formulaire
-      submitButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-
-        const categories = document.getElementById("categories");
-        const title = document.getElementById("title");
-
-        const formData = new FormData();
-        formData.append("title", title.value);
-        formData.append("category", parseInt(categories.value));
-        formData.append("image", image);
-        const response = await sendForm(formData);
-
-        if (response) {
-          // Réinitialiser le formulaire
-          title.value = "";
-          categories.selectedIndex = 0;
-          inputFile.value = "";
-          imgArea.innerHTML = `
-              <i class="fa-regular fa-image"></i>
-              <input type="file" name="image" id="file" accept="image/*" class="browse">
-              <span id="pictureSelectButton" class="pictureSelectButton">+ Ajouter photo</span>
-              <p>jpg, png : 4mo max</p>
-            `;
-          imgArea.classList.remove("active");
-
-          //Actualiser la galerie
-          const gallery = document.querySelector(".gallery");
-          const works = await getWorks();
-          gallery.innerHTML = "";
-          generateWorksHTML(works);
-
-          // Afficher le message de succès
-          const form = document.querySelector(".modalForm");
-          const submitButton = document.querySelector(".modalValidateButton");
-          const separator = document.querySelector(".modalSeparator");
-          const successMessage = document.createElement("p");
-          successMessage.textContent = "La photo a été ajoutée";
-          successMessage.style.color = "green";
-          successMessage.style.textAlign = "center";
-          successMessage.style.top = "-1em";
-          successMessage.style.position = "relative";
-          separator.style.marginBottom = "2em";
-
-          form.insertBefore(successMessage, submitButton);
-
-          // Supprimer le message de succès après quelques secondes (par exemple, 3 secondes)
-          setTimeout(() => {
-            form.removeChild(successMessage);
-          }, 10000);
-        } else {
-          console.log(response.statusText);
-        }
-      });
-    });
-  }
-
-  //Crée une fonction qui permet de supprimer une image en cliquant dessus
-  async function removePicture() {
-    const imgArea = document.querySelector(".addPictureContainer");
-    const inputFile = document.getElementById("file");
-    const form = document.querySelector(".modalForm");
-
-    imgArea.addEventListener("click", () => {
-      //Réinitialise le contenu de l'input
-      inputFile.value = "";
-      imgArea.innerHTML = `
-      <i class="fa-regular fa-image"></i>
-      <input type="file" name="image" id="file" accept="image/*" class="browse">
-      <span id="pictureSelectButton" class="pictureSelectButton">+ Ajouter photo</span>
-      <p>jpg, png : 4mo max</p>
-      `;
-      imgArea.classList.remove("active");
-      addPicture();
-      form.reset();
-    });
-  }
-
-  //Crée une fonction qui permet de valider si le formulaire est rempli
   async function validateForm() {
-    const form = document.querySelector(".modalForm");
+    const form = document.querySelector(".modal-form");
     const validateButton = document.getElementById("submit");
+
+    validateButton.style.backgroundColor = "#a7a7a7";
 
     form.addEventListener("change", () => {
       let valid = true;
@@ -174,23 +54,125 @@ export function initializeForm() {
         }
       }
       if (valid) {
-        validateButton.disabled = false;
-        validateButton.classList.add("enabled");
+        // validateButton.disabled = false;
+        validateButton.style.backgroundColor = "#1d6154";
       } else {
-        validateButton.disabled = true;
-        validateButton.classList.remove("enabled");
+        // validateButton.disabled = true;
+        validateButton.style.backgroundColor = "#a7a7a7";
       }
     });
   }
   validateForm();
-  removePicture();
-  addPicture();
+
+  const submitButton = document.querySelector(".modal-validate-button");
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    sendNewForm();
+  });
 }
 
-// Réinitialiser l'état du bouton "Ajouter une photo"
-const addPictureButton = document.querySelector(".addPictureButton");
-if (addPictureButton) {
-  addPictureButton.addEventListener("click", () => {
-    initializeForm();
+//Crée une fonction qui génère les options du select
+async function generateCategoryOptions() {
+  const categories = await getCategories();
+  const select = document.getElementById("categories");
+
+  const option = document.createElement("option");
+  option.value = "";
+  option.textContent = "Sélectionner une catégorie";
+  select.appendChild(option);
+
+  for (let i = 0; i < categories.length; i++) {
+    const category = categories[i];
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    select.appendChild(option);
+  }
+}
+
+//Crée une fonction qui permet d'ajouter une image à la galerie
+async function addPicture() {
+  const selectImage = document.getElementById("picture-select-button");
+  const inputFile = document.getElementById("file");
+  const imgArea = document.querySelector(".add-picture-container");
+
+  selectImage.addEventListener("click", () => {
+    inputFile.click();
   });
+
+  inputFile.addEventListener("input", () => {
+    image = inputFile.files[0];
+
+    if (image.size <= 4000000) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        imgArea.innerHTML = "";
+
+        const img = document.createElement("img");
+        img.src = reader.result;
+        imgArea.appendChild(img);
+        img.style.cursor = "pointer";
+
+        img.addEventListener("click", () => {
+          inputFile.value = "";
+          initializeForm();
+          image = null;
+        });
+      };
+
+      reader.readAsDataURL(image);
+    } else {
+      alert("Image size exceeds 4MB");
+      inputFile.value = "";
+    }
+  });
+}
+
+async function sendNewForm() {
+  const categories = document.getElementById("categories");
+  const title = document.getElementById("title");
+
+  const formData = new FormData();
+  formData.append("title", title.value);
+  formData.append("category", parseInt(categories.value));
+
+  if (!title.value || !categories.value || !image) {
+    const successMessage = document.querySelector(".success-message");
+    successMessage.style.visibility = "visible";
+    successMessage.innerHTML = "Veuillez remplir tous les champs";
+
+    setTimeout(() => {
+      successMessage.style.visibility = "hidden";
+    }, 3000);
+    return;
+  }
+
+  formData.append("image", image);
+
+  const response = await sendForm(formData);
+
+  if (response) {
+    // Réinitialiser le formulaire
+    initializeForm();
+    image = null;
+
+    //Actualiser la galerie
+    const gallery = document.querySelector(".gallery");
+    const works = await getWorks();
+    gallery.innerHTML = "";
+    generateWorksHTML(works);
+
+    const successMessage = document.querySelector(".success-message");
+    successMessage.style.visibility = "visible";
+    successMessage.innerHTML = "La photo a été ajoutée avec succès";
+
+    // Supprimer le message de succès après quelques secondes (par exemple, 3 secondes)
+    setTimeout(() => {
+      successMessage.style.visibility = "hidden";
+    }, 3000);
+  } else {
+    successMessage.style.visibility = "visible";
+    successMessage.innerHTML = "Une erreur est survenue";
+  }
 }

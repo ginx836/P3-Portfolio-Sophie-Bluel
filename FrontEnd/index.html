@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link
-		href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Work+Sans:wght@200;300;400&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Work+Sans:wght@200;300;400;700&display=swap"
 		rel="stylesheet">
 	<script src="https://kit.fontawesome.com/25acc03a8a.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
@@ -16,17 +16,17 @@
 </head>
 
 <body>
-	<div id="editMode">
+	<div id="edit-mode">
 		<i class="fa-solid fa-edit"></i>
 		<p>Mode Edition</p>
 	</div>
 	<header>
-		<h1><a href="./index.html">Sophie Bluel <span>Architecte d'intérieur</span></a></h1>
+		<h1><a href="./index.html">Sophie Bluel <span>ARCHITECTE D'INTERIEUR</span></a></h1>
 		<nav>
 			<ul class="navbar">
 				<li><a class="navbar-link" href="#portfolio">projets</a></li>
-				<li><a class="navbar-link" href="#contact">contact</a></li>
-				<li><a class="navbar-link" id="connectedLogin" href="./login.html">login</a></li>
+				<li><a class="navbar-link" id="#contact" href="#contact">contact</a></li>
+				<li><a class="navbar-link" id="connected-login" href="./login.html">login</a></li>
 				<li><a class="navbar-link" href="#"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
 			</ul>
 		</nav>
@@ -34,7 +34,7 @@
 	<main>
 		<section id="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
+				<img src="./assets/images/sophie-bluel.png" alt="Photo de l'architecte Sohpie Bluel">
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -48,13 +48,13 @@
 		</section>
 		<section id="portfolio">
 			<div id="projects">
-				<h2 id="projectsTitle">Mes Projets</h2>
-				<button type="button" class="editProjects jsModal">
+				<h2 id="projects-title">Mes Projets</h2>
+				<button type="button" class="edit-projects js-modal">
 					<i class="fa-solid fa-edit"></i>
 					modifier
 				</button>
 			</div>
-			<div class="filterContainer">
+			<div class="filter-container">
 			</div>
 			<div class="gallery">
 			</div>
@@ -73,13 +73,13 @@
 			</form>
 		</section>
 		<div id="modal1" class="modal" aria-hidden="true" role="dialog">
-			<div class="modalContentContainer jsModalStop">
-				<div class="modalHeader">
-					<button type="button" class="buttonModal jsModalBack"><i class="fa-solid fa-arrow-left"></i></button>
-					<button type="button" class="buttonModal jsModalClose"><i
+			<div class="modal-content-container js-modal-stop">
+				<div class="modal-header">
+					<button type="button" class="modal-header-buttons js-modal-back"><i class="fa-solid fa-arrow-left"></i></button>
+					<button type="button" class="modal-header-buttons js-modal-close"><i
 							class="fa-solid fa-xmark"></i></button>
 				</div>
-				<div class="modalContent">
+				<div class="modal-content">
 				</div>
 			</div>
 		</div>

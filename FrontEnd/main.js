@@ -1,61 +1,59 @@
 import {
   generateWorksHTML,
-  generateFigureHTML,
+  generateFigureElement,
   generateModalGallery,
 } from "./works.js";
-import { allWorks } from "./filter.js";
-import { filterWorks } from "./filter.js";
+import { allWorks, filterWorks } from "./filter.js";
 import { getWorks, getCategories } from "./api.js";
 import { editMode } from "./editMode.js";
 import { openModal, closeModal, stopPropagation } from "./modal.js";
-import { handleBackButtonClick } from "./works.js";
 
 async function init() {
   const works = await getWorks();
-  const category = await getCategories();
-  
-  generateFigureHTML();
+  const categories = await getCategories();
+
+  generateFigureElement();
   generateWorksHTML(works);
   allWorks(works);
-  filterWorks(works, category);
+  filterWorks(works, categories);
   editMode();
   generateModalGallery();
 
-  
-  //Gestion des événement
-  document.querySelectorAll(".jsModal").forEach((a) => {
+  // Event handling
+  document.querySelectorAll(".js-modal").forEach((a) => {
     a.addEventListener("click", openModal);
   });
-  document.querySelectorAll(".jsModalClose").forEach((a) => {
+  document.querySelectorAll(".js-modal-close").forEach((a) => {
     a.addEventListener("click", closeModal);
   });
-  document.querySelectorAll(".jsModalStop").forEach((a) => {
+  document.querySelectorAll(".js-modal-stop").forEach((a) => {
     a.addEventListener("click", stopPropagation);
   });
-  
-  document.querySelector(".jsModalBack").addEventListener("click", () => {
-    handleBackButtonClick();
-  });
-  
+
+  document.querySelector(".js-modal-back").addEventListener("click", handleBackButtonClick);
+
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" || e.key === "Esc") {
       closeModal(e);
       handleBackButtonClick();
     }
   });
-  
-  document.querySelector(".jsModalClose").addEventListener("click", (e) => {
+
+  document.querySelector(".js-modal-close").addEventListener("click", (e) => {
     closeModal(e);
     handleBackButtonClick();
   });
-  
+
   document.querySelector(".modal").addEventListener("click", (e) => {
     if (e.target === e.currentTarget) {
       closeModal(e);
       handleBackButtonClick();
     }
   });
+
+  function handleBackButtonClick() {
+    generateModalGallery();
+  }
 }
 
 init();
-

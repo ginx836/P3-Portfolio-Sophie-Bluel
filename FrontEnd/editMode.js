@@ -1,12 +1,12 @@
 export function editMode() {
   const accessToken = localStorage.getItem("accessToken");
 
-  const editMode = document.getElementById("editMode");
-  const connectedLogin = document.getElementById("connectedLogin");
-  const filterContainer = document.querySelector(".filterContainer");
+  const editMode = document.getElementById("edit-mode");
+  const connectedLogin = document.getElementById("connected-login");
+  const filterContainer = document.querySelector(".filter-container");
   const projects = document.getElementById("projects");
-  const projectsTitle = document.getElementById("projectsTitle");
-  const editProjects = document.querySelector(".editProjects");
+  const projectsTitle = document.getElementById("projects-title");
+  const editProjects = document.querySelector(".edit-projects");
 
   if (accessToken) {
     // Affiche la div editMode
@@ -34,7 +34,7 @@ editMode();
 
 // Ajout d'un listener sur le bouton logout
 document
-  .getElementById("connectedLogin")
+  .getElementById("connected-login")
   .addEventListener("click", handleLogout);
 
 export function handleLogout() {

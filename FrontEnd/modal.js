@@ -12,7 +12,7 @@ export function openModal(e) {
   e.preventDefault();
   modal = document.querySelector("#modal1");
   focusables = Array.from(modal.querySelectorAll(focusableSelector));
-  const modalBackButton = modal.querySelector(".jsModalBack");
+  const modalBackButton = modal.querySelector(".js-modal-back");
   if (modalBackButton) {
     modalBackButton.style.visibility = "hidden";
   }
@@ -21,9 +21,9 @@ export function openModal(e) {
   modal.removeAttribute("aria-hidden");
   modal.setAttribute("aria-modal", "true");
   modal.addEventListener("click", closeModal);
-  modal.querySelector(".jsModalClose").addEventListener("click", closeModal);
+  modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
   modal
-    .querySelector(".jsModalStop")
+    .querySelector(".js-modal-stop")
     .addEventListener("click", stopPropagation);
 }
 
@@ -35,9 +35,9 @@ export function closeModal(e) {
   modal.setAttribute("aria-hidden", "true");
   modal.removeAttribute("aria-modal");
   modal.removeEventListener("click", closeModal);
-  modal.querySelector(".jsModalClose").removeEventListener("click", closeModal);
+  modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
   modal
-    .querySelector(".jsModalStop")
+    .querySelector(".js-modal-stop")
     .removeEventListener("click", stopPropagation);
 
   modal = null;

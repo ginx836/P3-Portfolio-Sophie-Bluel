@@ -14,23 +14,13 @@ async function handleLogin(event) {
   const password = document.getElementById("password").value;
 
   function errorMessage(message) {
-    const form = document.getElementById("loginForm");
-    const submitButton = document.querySelector("input[type='submit']");
-    const error = document.createElement("p");
-    error.textContent = message;
-    error.style.color = "red";
-    error.style.textAlign = "center";
-    error.style.marginTop = "1em";
-
-    form.insertBefore(error, submitButton);
-
-    submitButton.addEventListener("click", function () {
-      error.remove();
-    });
+    const error = document.querySelector(".error-message");
+    error.style.visibility = "visible";
+    error.innerHTML = message;
 
     setTimeout(function () {
-      error.remove();
-    }, 10000);
+      error.style.visibility = "hidden";
+    }, 3000);
   }
 
   try {

@@ -1,6 +1,7 @@
 import { getWorks, deleteWork } from "./api.js";
 import { initializeForm } from "./form.js";
-export function generateFigureHTML(imageUrl, title, id) {
+
+export function generateFigureElement(imageUrl, title, id) {
   return `
     <figure data-id=${id}>
       <img src="${imageUrl}" alt="${title}">
@@ -14,23 +15,23 @@ export async function generateWorksHTML(works) {
   gallery.innerHTML = "";
 
   for (const work of works) {
-    const id = work.id;
-    const workHTML = generateFigureHTML(work.imageUrl, work.title, id);
-    document.querySelector(".gallery").innerHTML += workHTML;
+    const { id, imageUrl, title } = work;
+    const workHTML = generateFigureElement(imageUrl, title, id);
+    gallery.innerHTML += workHTML;
   }
 }
 
 export async function generateModalGallery() {
   const modal = document.querySelector(".modal");
-  const modalContent = document.querySelector(".modalContent");
-  const modalBackButton = modal.querySelector(".jsModalBack");
+  const modalContent = modal.querySelector(".modal-content");
+  const modalBackButton = modal.querySelector(".js-modal-back");
 
   modalBackButton.style.visibility = "hidden";
 
   const works = await getWorks();
 
   const modalGallery = document.createElement("div");
-  modalGallery.classList.add("modalGallery");
+  modalGallery.classList.add("modal-gallery");
 
   for (const work of works) {
     const modalWorkContainer = generateModalWorkContainerHTML(work);
@@ -38,63 +39,61 @@ export async function generateModalGallery() {
   }
 
   modalContent.innerHTML = `
-    <h3 class="modalTitle">Galerie photo</h3>
-    <hr class="modalSeparator">
-    <button type="button" class="addPictureButton">Ajouter une photo</button>
+    <h3 class="modal-title">Galerie photo</h3>
+    <hr class="modal-separator">
+    <p class="success-message">message d'erreur</p>
+    <button type="button" class="add-picture-button">Ajouter une photo</button>
   `;
 
-  modalContent.insertBefore(
-    modalGallery,
-    modalContent.querySelector(".modalSeparator")
-  );
+  modalContent.insertBefore(modalGallery, modalContent.querySelector(".modal-separator"));
 
-  document.querySelector(".addPictureButton").addEventListener("click", () => {
-    initializeForm();
-  });
+  document.querySelector(".add-picture-button").addEventListener("click", initializeForm);
 
-
-  const deleteIcons = modalGallery.querySelectorAll(".deleteIcon");
+  const deleteIcons = modalGallery.querySelectorAll(".delete-icon");
   for (const deleteIcon of deleteIcons) {
     deleteIcon.addEventListener("click", async () => {
       const id = deleteIcon.parentElement.dataset.id;
 
-      const response = await deleteWork(id);
+      await deleteWork(id);
 
-      if (response) {
-        deleteIcon.parentElement.remove();
+      deleteIcon.parentElement.remove();
 
-        const gallery = document.querySelector(".gallery");
-        const figureToRemove = gallery.querySelector(`figure[data-id="${id}"]`);
-        if (figureToRemove) {
-          figureToRemove.remove();
-          const works = await getWorks();
-          await generateWorksHTML(works);
-        }
-      } else {
-        alert("Une erreur est survenue");
+      const gallery = document.querySelector(".gallery");
+      const figureToRemove = gallery.querySelector(`figure[data-id="${id}"]`);
+      if (figureToRemove) {
+        figureToRemove.remove();
+
+        const successMessage = document.querySelector(".success-message");
+        successMessage.style.visibility = "visible";
+        successMessage.innerHTML = "La photo a été supprimée avec succès";
+
+        setTimeout(() => {
+          successMessage.style.visibility = "hidden";
+        }, 3000);
+
+        const updatedWorks = await getWorks();
+        generateWorksHTML(updatedWorks);
       }
     });
   }
 }
+
 function generateModalWorkContainerHTML(work) {
+  const { id, imageUrl, title } = work;
+
   const container = document.createElement("div");
-  container.classList.add("modalWorkContainer");
-  container.dataset.id = work.id;
+  container.classList.add("modal-work-container");
+  container.dataset.id = id;
 
   const deleteIcon = document.createElement("span");
-  deleteIcon.classList.add("deleteIcon");
+  deleteIcon.classList.add("delete-icon");
   deleteIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
 
   const figure = document.createElement("figure");
-  figure.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}" data-id="${work.id}">`;
+  figure.innerHTML = `<img src="${imageUrl}" alt="${title}" data-id="${id}">`;
 
   container.appendChild(deleteIcon);
   container.appendChild(figure);
 
-
   return container;
-}
-// La fonction pour gérer le clic sur le bouton "Back"
-export function handleBackButtonClick() {
-  generateModalGallery();
 }
