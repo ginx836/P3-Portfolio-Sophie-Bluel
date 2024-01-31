@@ -1,4 +1,5 @@
-# Créez une page web dynamique avec JavaScript
+# Portfolio Sophie Bluel 
+## Créez une page web dynamique avec JavaScript
 
 Vous travaillez comme développeur front-end pour l’agence ArchiWebos qui comprend 50 salariés.
 
